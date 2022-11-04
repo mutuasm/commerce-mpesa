@@ -1,0 +1,39 @@
+{% from "_includes/forms" import autosuggestField %}
+
+{{ autosuggestField({
+  label: 'Consumer Key'|t('commerce'),
+  id: 'consumerKey',
+  class: 'ltr',
+  name: 'consumerKey',
+  suggestEnvVars: true,
+  value: gateway.getConsumerKey(false),
+  errors: gateway.getErrors('consumerKey')
+}) }}
+
+{{ autosuggestField({
+label: 'Consumer Secret'|t('commerce'),
+id: 'consumerSecret',
+class: 'ltr',
+name: 'consumerSecret',
+suggestEnvVars: true,
+value: gateway.getConsumerSecret(false),
+errors: gateway.getErrors('consumerSecret')
+}) }}
+
+{{ autosuggestField({
+label: 'Pass Key'|t('commerce'),
+id: 'passKey',
+class: 'ltr',
+name: 'passKey',
+suggestEnvVars: true,
+value: gateway.getPassKey(false),
+errors: gateway.getErrors('passKey')
+}) }}
+
+{{ booleanMenuField({
+label: "Test mode?"|t('commerce'),
+name: 'testMode',
+value: gateway.getTestMode(false),
+includeEnvVars: true,
+errors: gateway.getErrors('testMode'),
+}) }}
