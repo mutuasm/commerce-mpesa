@@ -1,5 +1,5 @@
 {
-  "name": "craftcms/commerce-mpesa",
+  "name": "mwanziamutua/commerce-mpesa",
   "description": "Mpesa payments integration for Craft Commerce 4.0+",
   "type": "craft-plugin",
   "keywords": [

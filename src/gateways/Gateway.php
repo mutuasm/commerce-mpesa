@@ -69,6 +69,11 @@ class Gateway extends OffsiteGateway
     private ?string $_consumerSecret = null;
 
     /**
+     * @var bool|string
+     */
+    private bool|string $_testMode = false;
+
+    /**
      * @inheritdoc
      */
     public function getSettings(): array
@@ -223,15 +228,6 @@ class Gateway extends OffsiteGateway
     }
 
 
-    /**
-     * @inheritdoc
-     */
-    public function getPaymentTypeOptions(): array
-    {
-        return [
-            'purchase' => Craft::t('commerce', 'Purchase (Authorize and Capture Immediately)'),
-        ];
-    }
 
     /**
      * @inheritdoc
@@ -279,18 +275,6 @@ class Gateway extends OffsiteGateway
         return $html;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function rules(): array
-    {
-        $rules = parent::rules();
-        $rules[] = [];
-
-        return $rules;
-    }
-
-
 
     /**
      * @inheritdoc
@@ -306,9 +290,9 @@ class Gateway extends OffsiteGateway
         $gateway->setPassKey($this->getPassKey());
         $gateway->setTestMode($this->getTestMode());
 
-        $commerceMollie = Craft::$app->getPlugins()->getPluginInfo('commerce-flutterwave');
-        if ($commerceMollie) {
-            $gateway->addVersionString('MollieCraftCommerce/' . $commerceMollie['version']);
+        $commerceMpesa = Craft::$app->getPlugins()->getPluginInfo('commerce-mpesa');
+        if ($commerceMpesa) {
+            $gateway->addVersionString('MpesaCraftCommerce/' . $commerceMpesa['version']);
         }
 
         $commerce = Craft::$app->getPlugins()->getPluginInfo('commerce');

@@ -1,4 +1,14 @@
-{% from "_includes/forms" import autosuggestField %}
+{% from "_includes/forms" import autosuggestField, booleanMenuField %}
+
+{{ autosuggestField({
+label: 'Business Shortcode'|t('commerce'),
+id: 'shortcode',
+class: 'ltr',
+name: 'shortcode',
+suggestEnvVars: true,
+value: gateway.getShortcode(false),
+errors: gateway.getErrors('shortcode')
+}) }}
 
 {{ autosuggestField({
   label: 'Consumer Key'|t('commerce'),
