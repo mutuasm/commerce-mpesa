@@ -18,10 +18,11 @@
   ],
   "support": {
     "email": "support@craftcms.com",
-    "issues": "https://github.com/atecke/commerce-mpesa/issues?state=open",
-    "source": "https://github.com/atecke/commerce-mpesa",
-    "docs": "https://github.com/atecke/commerce-mpesa",
-    "rss": "https://github.com/atecke/commerce-mpesa/commits/master.atom"
+    "issues": "https://github.com/mutuasm/commerce-mpesa/issues?state=open",
+    "source": "https://github.com/mutuasm/commerce-mpesa",
+    "docs": "https://github.com/mutuasm/commerce-mpesa",
+    "rss": "https://github.com/mutuasm/commerce-mpesa/commits/master.atom"
+
   },
   "require": {
     "php": "^8.0.2",

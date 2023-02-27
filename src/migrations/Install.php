@@ -1,8 +1,13 @@
 <?php
 /**
+<<<<<<< HEAD
+ * @link https://dimetechgroup.com/
+ * @copyright Copyright (c) Dimetech Group.
+=======
  * @link      https://craftcms.com/
  * @copyright Copyright (c) Pixel & Tonic, Inc.
  * @license   https://craftcms.com/license
+>>>>>>> 2f4c11c8fd43049583b2d32c4a99021ff629fda3
  */
 
 namespace craft\commerce\mpesa\migrations;
@@ -16,8 +21,13 @@ use yii\db\Exception;
 /**
  * Installation Migration
  *
+<<<<<<< HEAD
+ * @author Dimetech Group <support@dimetechgroup.com>
+ * @since  1.0.0
+=======
  * @author Atec, Inc. <support@atec.ke>
  * @since  1.0
+>>>>>>> 2f4c11c8fd43049583b2d32c4a99021ff629fda3
  */
 class Install extends Migration
 {

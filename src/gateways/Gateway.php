@@ -1,8 +1,8 @@
 <?php
 /**
- * @link https://craftcms.com/
- * @copyright Copyright (c) Pixel & Tonic, Inc.
- * @license https://craftcms.github.io/license/
+ * @link https://dimetechgroup.com/
+ * @copyright Copyright (c) Dimetech Group.
+
  */
 
 namespace craft\commerce\mpesa\gateways;
@@ -40,7 +40,9 @@ use yii\base\NotSupportedException;
 /**
  * Gateway represents Mpesa gateway
  *
- * @author    Atec, Inc. <support@atec.ke>
+
+ * @author    Dimetech Group <support@dimetechgroup.com>
+
  * @since     1.0
  *
  * @property bool $apiKey
@@ -198,26 +200,91 @@ class Gateway extends OffsiteGateway
             /** @var MpesaOffsitePaymentForm $paymentForm */
             if ($paymentForm->phone) {
                 $request['phone_number'] = $paymentForm->phone;
+                $request['account'] = $request['order']['id'];
+                $request['callbackUrl'] = $request['returnUrl'];;
             }
 
         }
     }
 
+    public function supportsPaymentSources(): bool
+    {
+        return false;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function supportsRefund(): bool
+    {
+        return false;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function supportsCompletePurchase(): bool
+    {
+        return true;
+    }
+
     /**
      * @inheritdoc
      */
-    public function completePurchase(Transaction $transaction): RequestResponseInterface
+    public function supportsWebhooks(): bool
     {
-        if (!$this->supportsCompletePurchase()) {
-            throw new NotSupportedException(Craft::t('commerce', 'Completing purchase is not supported by this gateway'));
+        return true;
+    }
+
+
+
+    /**
+     * @inheritDoc
+     */
+    public function purchase(Transaction $transaction, BasePaymentForm $form): RequestResponseInterface
+    {
+        return parent::purchase($transaction, $form);
+    }
+
+
+    /**
+     * @inheritdoc
+     */
+    public function processWebHook(): Response
+    {
+        $rawData = Craft::$app->getRequest()->getRawBody();
+        $response = Craft::$app->getResponse();
+        $response->format = Response::FORMAT_RAW;
+
+        $data = Json::decodeIfJson($rawData);
+
+        if ($data) {
+            try {
+
+            } catch (\Throwable $exception) {
+                Craft::$app->getErrorHandler()->logException($exception);
+            }
+        } else {
+            Craft::warning('Could not decode JSON payload.', 'mpesa');
         }
 
-        $request = $this->createRequest($transaction);
-        $request['account'] = 'test';
-        $completeRequest = $this->prepareCompletePurchaseRequest($request);
+        $response->data = 'ok';
 
-        return $this->performRequest($completeRequest, $transaction);
+        return $response;
     }
+
+
+    /**
+     * @inheritdoc
+     
+*/
+    public function getPaymentTypeOptions(): array
+    {
+        return [
+            'purchase' => Craft::t('commerce', 'Purchase (Authorize and Capture Immediately)'),
+        ];
+    }
+
 
     /**
      * @inheritdoc
